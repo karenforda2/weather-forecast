@@ -1,3 +1,9 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+	<nav>
+		<ul>
+			<li><a [routerLink]="['home']">Current Temperature</a></li>
+			<li><a [routerLink]="['ten-day']">10 Day Temperature</a></li>
+		</ul>
+	</nav>
+	<router-outlet></router-outlet>
+</div>
