@@ -18,18 +18,20 @@ export class Error {
 	constructor(
 		parent
 	) {
-		this.description = parent.description !== null ? parent.description : null;
+		this.description = parent.description;
 	}
 }
 
 export class CurrentObservation {
 	temp: number;
+	location: string;
 
 	constructor(
 		parent
 	) {
 		if(parent !== null) {
-			this.temp = parent.temp_f !== null ? parent.temp_f : null;
+			this.temp = parent.temp_f;
+			this.location = parent.display_location.full;
 		}
 	}
 }

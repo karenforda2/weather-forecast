@@ -1,11 +1,15 @@
-<div class="current-temp">
+<div class="current-temp text-center">
 	<!-- TODO: Turn loader into a component / service -->
-	<img src="/assets/images/Rolling.gif" alt="" *ngIf="loading" />
+	<img src="/assets/images/Rolling.gif" alt="" *ngIf="loading" class="loader" />
 	<ng-template [ngIf]="!loading">
-		<div *ngIf="conditions && conditions.currentObservation"> Your current temp: {{ conditions?.currentObservation?.temp }}&deg;F</div>
+		<div *ngIf="conditions && conditions.currentObservation">Current temperature for {{ conditions?.currentObservation.location }}: {{ conditions?.currentObservation?.temp }}&deg;F</div>
 		<div *ngIf="conditions && conditions.error">
 			<p>The temperature is not available right now.</p>
 			<p> {{conditions.error.description}}</p>
 		</div>
 	</ng-template>
+</div>
+
+<div class="text-center">
+	<button type="button" class="btn btn-primary">10 Day Forecast</button>
 </div>

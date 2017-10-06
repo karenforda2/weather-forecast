@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  enableLogging: true
+  enableLogging: true,
+  wundergroundAPIkey: '181be5ba9f40a756'
 };

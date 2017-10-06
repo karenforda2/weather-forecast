@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../shared/services/weather.service';
 import { Conditions } from '../shared/models/conditions.model';
+import { environment } from '../../environments/environment';
+
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/mergeMap';
 
 @Component({
@@ -12,33 +15,34 @@ import 'rxjs/add/operator/mergeMap';
 export class HomeComponent implements OnInit {
 	conditions: Conditions;
 	loading = true;
-	coords: any;
-	wundergroundURL: string;
+	weatherSubscriptions: Subscription;
 
   	constructor(
 		private weatherService: WeatherService
 	  ) { }
 
   	ngOnInit() {
-		this.weatherService.getCurrentLocation().flatMap(position => {
-			this.coords = position.coords;
+
+		// retrieve coords using html geolocation
+		this.weatherSubscriptions = this.weatherService.getCurrentLocation().mergeMap(position => {
+
+			// get wunderground url using returned coords
+			let wundergroundURL = this.weatherService.getWundergroundAPIurl(position.coords, 'conditions');
+
+			// retrieve forecast
+			return this.weatherService.getCurrentTemp(wundergroundURL);
+
+		}).subscribe(res => {
+
+			// set conditions
+			this.conditions = res;
+
+			// turn off loader
+			this.loading = false;
 		});
-
-		if(this.coords) {
-			this.wundergroundURL = 'http://api.wunderground.com/api/181be5ba9f40a756/conditions/q/' + this.coords.latitude + ',' + this.coords.longitude + '.json';
-
-			console.log('wundergroundURL',this.wundergroundURL);
-
-			this.weatherService.getForecast(this.wundergroundURL).subscribe(res => {
-				this.conditions = res;
-				this.loading = false;
-			});
-		}
-		
-
-		
-
-		
 	}
-	
+
+	ngOnDestroy(): void{
+        this.weatherSubscriptions.unsubscribe();
+    }
 }

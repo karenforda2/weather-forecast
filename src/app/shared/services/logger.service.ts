@@ -38,7 +38,7 @@ export class Logger {
 			if (!messages || !messages.length) {
 				messages = [];
 			}
-			messages.unshift(`[UI.SPA: ${label}]`);
+			messages.unshift(`[Weather Forecast: ${label}]`);
 
 			// default to console.log if other methods unsupported
 			if (!console[method]) {
