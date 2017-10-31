@@ -1,0 +1,7 @@
+<ng-template [ngIf]="tenDayForecast">
+<div *ngFor="let dailyForecast of tenDayForecast.dailyForecast; let i = index">
+	High {{ dailyForecast.highTemp }}&deg;F
+	Low {{ dailyForecast.lowTemp }}&deg;F 
+	<img [src]='dailyForecast.forecastIcon' alt="" />
+</div>
+</ng-template>

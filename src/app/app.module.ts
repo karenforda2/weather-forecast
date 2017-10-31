@@ -10,11 +10,13 @@ import { HomeComponent } from './home/home.component';
 import { ApiService} from './shared/services/api.service';
 import { Logger} from './shared/services/logger.service';
 import { WeatherService } from './shared/services/weather.service';
+import { TenDayForecastComponent } from './10-day-forecast/10-day-forecast.component';
 
 @NgModule({
   	declarations: [
     	AppComponent,
-    	HomeComponent
+    	HomeComponent,
+    	TenDayForecastComponent
   	],
   	imports: [
 		BrowserModule,

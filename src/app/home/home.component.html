@@ -7,11 +7,12 @@
 			<p>The temperature is not available right now.</p>
 			<p> {{conditions.error.description}}</p>
 		</div>
+		<p>Please enter your 5 digit zip code</p>
+		<input type="text" #zipCodeValue maxlength="5" /><button type="button" class="btn btn-primary" (click)="getUserForecast(zipCodeValue.value)">Get Forecast</button>
 	</ng-template>
 </div>
 
-<!--
+
 <div class="text-center">
-	<button type="button" class="btn btn-primary">10 Day Forecast</button>
+	<a class="btn btn-primary" [routerLink]="['/10-day']">10 Day Forecast</a>
 </div>
--->

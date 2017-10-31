@@ -27,12 +27,29 @@ export class HomeComponent implements OnInit {
 		this.weatherSubscriptions = this.weatherService.getCurrentLocation().mergeMap(position => {
 
 			// get wunderground url using returned coords
-			let wundergroundURL = this.weatherService.getWundergroundAPIurl(position.coords, 'conditions');
+			let wundergroundURL = this.weatherService.getWundergroundAPIurl(position.coords, 'conditions', null);
 
 			// retrieve forecast
-			return this.weatherService.getCurrentTemp(wundergroundURL);
+			return this.weatherService.getCurrentTemp(wundergroundURL,'conditions');
 
 		}).subscribe(res => {
+
+			// set conditions
+			this.conditions = res;
+
+			// turn off loader
+			this.loading = false;
+		});
+	}
+
+	getUserForecast(zipCodeValue) {
+		// turn off loader
+		this.loading = true;
+
+		// get wunderground url using returned coords
+		let wundergroundURL = this.weatherService.getWundergroundAPIurl(null, 'conditions', zipCodeValue);
+
+		this.weatherService.getCurrentTemp(wundergroundURL, 'conditions').subscribe(res => {
 
 			// set conditions
 			this.conditions = res;
